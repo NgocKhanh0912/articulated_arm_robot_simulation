@@ -92,7 +92,8 @@ function theta_1_slider_Callback(hObject, eventdata, handles)
 % hObject    handle to theta_1_slider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+slider_1_value = get(hObject, 'Value');
+set(handles.theta_1_value, 'String', num2str(slider_1_value));
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
@@ -114,7 +115,8 @@ function theta_2_slider_Callback(hObject, eventdata, handles)
 % hObject    handle to theta_2_slider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+slider_2_value = get(hObject, 'Value');
+set(handles.theta_2_value, 'String', num2str(slider_2_value));
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
@@ -136,7 +138,8 @@ function theta_3_slider_Callback(hObject, eventdata, handles)
 % hObject    handle to theta_3_slider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+slider_3_value = get(hObject, 'Value');
+set(handles.theta_3_value, 'String', num2str(slider_3_value));
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
@@ -158,7 +161,8 @@ function theta_4_slider_Callback(hObject, eventdata, handles)
 % hObject    handle to theta_4_slider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+slider_4_value = get(hObject, 'Value');
+set(handles.theta_4_value, 'String', num2str(slider_4_value));
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
