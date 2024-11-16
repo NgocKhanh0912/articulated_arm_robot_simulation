@@ -58,6 +58,20 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+% Config slider parameters
+set(handles.theta_1_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
+    'SliderStep', [1/180, 1/180]);
+set(handles.theta_2_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
+    'SliderStep', [1/180, 1/180]);
+set(handles.theta_3_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
+    'SliderStep', [1/180, 1/180]);
+set(handles.theta_4_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
+    'SliderStep', [1/180, 1/180]);
+
+% Draw base form of Articulated Arm Robot
+axes(handles.robot_axes);
+draw_robot_form();
+
 % UIWAIT makes gui wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
