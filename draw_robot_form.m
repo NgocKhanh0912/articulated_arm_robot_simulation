@@ -3,6 +3,11 @@
   yDU = linspace(-90, 90, 20);
   yUD = linspace(90, -90, 20);
 
+  num_points = length(yDU) + length(xAB) + length(yUD) + length(xBA);
+
+  x = zeros(2, num_points);
+  y = zeros(2, num_points);
+
   % Base
   x(1,:) = [-140*ones(size(yDU)) xAB 70*ones(size(yUD)) xBA];
   x(2,:) = x(1,:);
@@ -117,6 +122,16 @@
   surf(X_5 * 100 + 1000, Y_5 * 100, Z_5 * 100 + 500, 'FaceColor', [127, 127, 127]/255);
   hold on;
 
+  % Draw workspace
+  r_workspace = 1100; 
+  theta = linspace(0, 2*pi, 100); 
+  x_workspace = r_workspace * cos(theta); 
+  y_workspace = r_workspace * sin(theta); 
+  z_workspace = zeros(size(x_workspace)); 
+
+  plot3(x_workspace, y_workspace, z_workspace, 'k-', 'LineWidth', 1.5);
+  hold on;
+
   % Title
   axis equal;
   xlabel('X-axis');
@@ -125,3 +140,4 @@
   grid on;
   view(3); 
   title('Articulated Arm');
+  rotate3d on;
