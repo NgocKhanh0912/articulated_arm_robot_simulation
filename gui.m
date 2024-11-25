@@ -160,6 +160,18 @@ function forward_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+theta_1 = deg2rad(get(handles.theta_1_slider, 'Value'));
+theta_2 = deg2rad(get(handles.theta_2_slider, 'Value'));
+theta_3 = deg2rad(get(handles.theta_3_slider, 'Value'));
+
+for i = 1:20
+    step_theta_1 = theta_1 * (i / 20);
+    step_theta_2 = theta_2 * (i / 20);
+    step_theta_3 = theta_3 * (i / 20);
+
+    draw_robot(step_theta_1, step_theta_2, step_theta_3);
+    pause(0.05);
+end
 
 
 function theta_1_value_Callback(hObject, eventdata, handles)
