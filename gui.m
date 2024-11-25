@@ -65,8 +65,6 @@ set(handles.theta_2_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
 set(handles.theta_3_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
-set(handles.theta_4_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
-    'SliderStep', [1/180, 1/180]);
 
 % Draw base form of Articulated Arm Robot
 axes(handles.robot_axes);
@@ -147,29 +145,6 @@ set(handles.theta_3_value, 'String', num2str(slider_3_value));
 % --- Executes during object creation, after setting all properties.
 function theta_3_slider_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to theta_3_slider (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: slider controls usually have a light gray background.
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-
-% --- Executes on slider movement.
-function theta_4_slider_Callback(hObject, eventdata, handles)
-% hObject    handle to theta_4_slider (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-slider_4_value = get(hObject, 'Value');
-set(handles.theta_4_value, 'String', num2str(slider_4_value));
-% Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-
-% --- Executes during object creation, after setting all properties.
-function theta_4_slider_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to theta_4_slider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
