@@ -1,4 +1,4 @@
-function Inverse_Kinematics(X, Y, Z)
+function Inverse_Kinematics(handles, X, Y, Z)
 
   d1 = 500.0; 
   a2 = 500.0; 
@@ -10,13 +10,19 @@ function Inverse_Kinematics(X, Y, Z)
   
   z_effective = Z - d1;
   
-  c2 = (r^2 + z_effective^2 - a2^2 - a3^2) / (2 * a2 * a3);
-  s2 = sqrt(1 - c2^2);
-  theta3 = atan2(s2, c2); 
+  c3 = (r^2 + z_effective^2 - a2^2 - a3^2) / (2 * a2 * a3);
+  s3 = -sqrt(1 - c3^2);
+  theta3 = atan2(s3, c3); 
   
-  k1 = a2 + a3 * c2;
-  k2 = a3 * s2;
-  theta2 = atan2(z_effective, r) - atan2(k2, k1);
+  theta2 = atan2(z_effective, r) - atan2(a3 * s3, a2 + a3 * c3);
+
+  set(handles.x_response_value, 'String', num2str(X));
+  set(handles.y_response_value, 'String', num2str(Y));
+  set(handles.z_response_value, 'String', num2str(Z));
+
+  set(handles.theta1_response_value, 'String', num2str(rad2deg(theta1)));
+  set(handles.theta2_response_value, 'String', num2str(rad2deg(theta2)));
+  set(handles.theta3_response_value, 'String', num2str(rad2deg(theta3)));
   
   draw_robot(theta1, theta2, theta3);
   
