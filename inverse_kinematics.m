@@ -14,7 +14,12 @@ function Inverse_Kinematics(handles, X, Y, Z)
   s3 = -sqrt(1 - c3^2);
   theta3 = atan2(s3, c3); 
   
-  theta2 = atan2(z_effective, r) - atan2(a3 * s3, a2 + a3 * c3);
+  A = a2 + a3 * c3;
+  B = a3 * s3;
+
+  c2 = (r * A + B * z_effective) / (A^2 + B^2);
+  s2 = (z_effective * A - B * r) / (A^2 + B^2);
+  theta2 = atan2(z_effective, r) - atan2(B, A);
 
   set(handles.x_response_value, 'String', num2str(X));
   set(handles.y_response_value, 'String', num2str(Y));
