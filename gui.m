@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 16-Nov-2024 19:34:11
+% Last Modified by GUIDE v2.5 30-Nov-2024 20:43:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -546,3 +546,25 @@ function inverse_button_Callback(hObject, eventdata, handles)
 % hObject    handle to inverse_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+x = str2double(get(handles.x_setpoint_value, 'String'));
+y = str2double(get(handles.y_setpoint_value, 'String'));
+z = str2double(get(handles.z_setpoint_value, 'String'));
+
+if isnan(x) || isnan(y) || isnan(z)
+    errordlg('Invalid value', 'Error');
+    return;
+end
+
+start_x = 1000;
+start_y = 0;
+start_z = 500;
+
+for i = 1:20
+    step_x = start_x + (x - start_x) * (i / 20.0);
+    step_y = start_y + (y - start_y) * (i / 20.0);
+    step_z = start_z + (z - start_z) * (i / 20.0);
+
+    inverse_kinematics(step_x, step_y, step_z);
+    pause(0.05);
+end
