@@ -3,10 +3,14 @@ function Draw_Robot(theta1, theta2, theta3)
   cla;
   hold on;
 
+  d1 = 500.0; 
+  a2 = 500.0; 
+  a3 = 500.0; 
+
   % Forward Kinematics matrices
-  T0_1 = dh_matrix(500, theta1, 0  , pi/2);
-  T1_2 = dh_matrix(0,   theta2, 500, 0   );
-  T2_3 = dh_matrix(0,   theta3, 500, 0   );
+  T0_1 = dh_matrix(d1,  theta1, 0 , pi/2);
+  T1_2 = dh_matrix(0,   theta2, a2, 0   );
+  T2_3 = dh_matrix(0,   theta3, a3, 0   );
 
   T0_2 = T0_1 * T1_2;
   T0_3 = T0_2 * T2_3;
