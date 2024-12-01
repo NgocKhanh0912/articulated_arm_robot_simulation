@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 30-Nov-2024 22:57:03
+% Last Modified by GUIDE v2.5 01-Dec-2024 14:08:25
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -168,6 +168,10 @@ for i = 1:20
     step_theta_1 = theta_1 * (i / 20);
     step_theta_2 = theta_2 * (i / 20);
     step_theta_3 = theta_3 * (i / 20);
+
+    set(handles.theta_1_response, 'String', num2str(rad2deg(step_theta_1)));
+    set(handles.theta_2_response, 'String', num2str(rad2deg(step_theta_2)));
+    set(handles.theta_3_response, 'String', num2str(rad2deg(step_theta_3)));
 
     draw_robot(step_theta_1, step_theta_2, step_theta_3);
     pause(0.05);
@@ -491,6 +495,75 @@ function theta3_response_value_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function theta3_response_value_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to theta3_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta_1_response_Callback(hObject, eventdata, handles)
+% hObject    handle to theta_1_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta_1_response as text
+%        str2double(get(hObject,'String')) returns contents of theta_1_response as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta_1_response_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta_1_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta_2_response_Callback(hObject, eventdata, handles)
+% hObject    handle to theta_2_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta_2_response as text
+%        str2double(get(hObject,'String')) returns contents of theta_2_response as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta_2_response_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta_2_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta_3_response_Callback(hObject, eventdata, handles)
+% hObject    handle to theta_3_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta_3_response as text
+%        str2double(get(hObject,'String')) returns contents of theta_3_response as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta_3_response_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta_3_response (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
