@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 01-Dec-2024 14:08:25
+% Last Modified by GUIDE v2.5 02-Dec-2024 22:41:29
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -236,29 +236,6 @@ function theta_3_value_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function theta_3_value_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to theta_3_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function theta_4_value_Callback(hObject, eventdata, handles)
-% hObject    handle to theta_4_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of theta_4_value as text
-%        str2double(get(hObject,'String')) returns contents of theta_4_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function theta_4_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to theta_4_value (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -564,6 +541,110 @@ function theta_3_response_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function theta_3_response_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to theta_3_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in view_lspb_effector_button.
+function view_lspb_effector_button_Callback(hObject, eventdata, handles)
+% hObject    handle to view_lspb_effector_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in view_lspb_joint_1_button.
+function view_lspb_joint_1_button_Callback(hObject, eventdata, handles)
+% hObject    handle to view_lspb_joint_1_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in view_lspb_joint_2_button.
+function view_lspb_joint_2_button_Callback(hObject, eventdata, handles)
+% hObject    handle to view_lspb_joint_2_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in view_lspb_joint_3_button.
+function view_lspb_joint_3_button_Callback(hObject, eventdata, handles)
+% hObject    handle to view_lspb_joint_3_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in inverse_lspb_button.
+function inverse_lspb_button_Callback(hObject, eventdata, handles)
+% hObject    handle to inverse_lspb_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+function lspb_q_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to lspb_q_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lspb_q_max_value as text
+%        str2double(get(hObject,'String')) returns contents of lspb_q_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lspb_q_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lspb_q_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function lspb_v_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to lspb_v_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lspb_v_max_value as text
+%        str2double(get(hObject,'String')) returns contents of lspb_v_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lspb_v_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lspb_v_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function lspb_a_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to lspb_a_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lspb_a_max_value as text
+%        str2double(get(hObject,'String')) returns contents of lspb_a_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lspb_a_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lspb_a_max_value (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
