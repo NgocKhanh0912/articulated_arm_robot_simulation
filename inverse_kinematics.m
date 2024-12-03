@@ -1,5 +1,7 @@
 function Inverse_Kinematics(handles, X, Y, Z)
 
+  axes(handles.robot_axes);
+  
   d1 = 500.0; 
   a2 = 500.0; 
   a3 = 500.0; 
