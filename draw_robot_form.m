@@ -1,4 +1,6 @@
-function Draw_Robot_Form()
+function Draw_Robot_Form(handles)
+
+  axes(handles.robot_axes);
 
   theta_1_begin = 0;
   theta_2_begin = 0;

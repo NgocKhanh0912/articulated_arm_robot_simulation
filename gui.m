@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 30-Nov-2024 20:43:02
+% Last Modified by GUIDE v2.5 02-Dec-2024 22:41:29
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -67,8 +67,7 @@ set(handles.theta_3_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
 
 % Draw base form of Articulated Arm Robot
-axes(handles.robot_axes);
-draw_robot_form();
+draw_robot_form(handles);
 
 % UIWAIT makes gui wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -159,18 +158,23 @@ function forward_button_Callback(hObject, eventdata, handles)
 % hObject    handle to forward_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+axes(handles.robot_axes);
 
 theta_1 = deg2rad(get(handles.theta_1_slider, 'Value'));
 theta_2 = deg2rad(get(handles.theta_2_slider, 'Value'));
 theta_3 = deg2rad(get(handles.theta_3_slider, 'Value'));
 
-for i = 1:20
-    step_theta_1 = theta_1 * (i / 20);
-    step_theta_2 = theta_2 * (i / 20);
-    step_theta_3 = theta_3 * (i / 20);
+for i = 1:25
+    step_theta_1 = theta_1 * (i / 25);
+    step_theta_2 = theta_2 * (i / 25);
+    step_theta_3 = theta_3 * (i / 25);
+
+    set(handles.theta_1_response, 'String', num2str(rad2deg(step_theta_1)));
+    set(handles.theta_2_response, 'String', num2str(rad2deg(step_theta_2)));
+    set(handles.theta_3_response, 'String', num2str(rad2deg(step_theta_3)));
 
     draw_robot(step_theta_1, step_theta_2, step_theta_3);
-    pause(0.05);
+    pause(0.0005);
 end
 
 
@@ -232,29 +236,6 @@ function theta_3_value_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function theta_3_value_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to theta_3_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function theta_4_value_Callback(hObject, eventdata, handles)
-% hObject    handle to theta_4_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of theta_4_value as text
-%        str2double(get(hObject,'String')) returns contents of theta_4_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function theta_4_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to theta_4_value (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -403,144 +384,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-
-function roll_response_value_Callback(hObject, eventdata, handles)
-% hObject    handle to roll_response_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of roll_response_value as text
-%        str2double(get(hObject,'String')) returns contents of roll_response_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function roll_response_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to roll_response_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function roll_setpoint_value_Callback(hObject, eventdata, handles)
-% hObject    handle to roll_setpoint_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of roll_setpoint_value as text
-%        str2double(get(hObject,'String')) returns contents of roll_setpoint_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function roll_setpoint_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to roll_setpoint_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function pitch_response_value_Callback(hObject, eventdata, handles)
-% hObject    handle to pitch_response_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of pitch_response_value as text
-%        str2double(get(hObject,'String')) returns contents of pitch_response_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function pitch_response_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pitch_response_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function pitch_setpoint_value_Callback(hObject, eventdata, handles)
-% hObject    handle to pitch_setpoint_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of pitch_setpoint_value as text
-%        str2double(get(hObject,'String')) returns contents of pitch_setpoint_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function pitch_setpoint_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pitch_setpoint_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function yaw_response_value_Callback(hObject, eventdata, handles)
-% hObject    handle to yaw_response_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of yaw_response_value as text
-%        str2double(get(hObject,'String')) returns contents of yaw_response_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function yaw_response_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to yaw_response_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function yaw_setpoint_value_Callback(hObject, eventdata, handles)
-% hObject    handle to yaw_setpoint_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of yaw_setpoint_value as text
-%        str2double(get(hObject,'String')) returns contents of yaw_setpoint_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function yaw_setpoint_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to yaw_setpoint_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
 % --- Executes on button press in inverse_button.
 function inverse_button_Callback(hObject, eventdata, handles)
 % hObject    handle to inverse_button (see GCBO)
@@ -556,15 +399,262 @@ if isnan(x) || isnan(y) || isnan(z)
     return;
 end
 
+% Value of x, y, z must be a point in this sphere:
+O = [0, 0, 500];
+r = 1000;
+
+if (x - O(1))^2 + (y - O(2))^2 + (z - O(3))^2 > r^2
+    errordlg('Invalid value', 'Error');
+    return;
+end
+
 start_x = 1000;
 start_y = 0;
 start_z = 500;
 
-for i = 1:20
-    step_x = start_x + (x - start_x) * (i / 20.0);
-    step_y = start_y + (y - start_y) * (i / 20.0);
-    step_z = start_z + (z - start_z) * (i / 20.0);
+for i = 1:25
+    step_x = start_x + (x - start_x) * (i / 25.0);
+    step_y = start_y + (y - start_y) * (i / 25.0);
+    step_z = start_z + (z - start_z) * (i / 25.0);
 
-    inverse_kinematics(step_x, step_y, step_z);
-    pause(0.05);
+    inverse_kinematics(handles, step_x, step_y, step_z);
+    pause(0.0005);
+end
+
+
+
+function theta1_response_value_Callback(hObject, eventdata, handles)
+% hObject    handle to theta1_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta1_response_value as text
+%        str2double(get(hObject,'String')) returns contents of theta1_response_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta1_response_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta1_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta2_response_value_Callback(hObject, eventdata, handles)
+% hObject    handle to theta2_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta2_response_value as text
+%        str2double(get(hObject,'String')) returns contents of theta2_response_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta2_response_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta2_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta3_response_value_Callback(hObject, eventdata, handles)
+% hObject    handle to theta3_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta3_response_value as text
+%        str2double(get(hObject,'String')) returns contents of theta3_response_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta3_response_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta3_response_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta_1_response_Callback(hObject, eventdata, handles)
+% hObject    handle to theta_1_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta_1_response as text
+%        str2double(get(hObject,'String')) returns contents of theta_1_response as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta_1_response_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta_1_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta_2_response_Callback(hObject, eventdata, handles)
+% hObject    handle to theta_2_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta_2_response as text
+%        str2double(get(hObject,'String')) returns contents of theta_2_response as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta_2_response_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta_2_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function theta_3_response_Callback(hObject, eventdata, handles)
+% hObject    handle to theta_3_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of theta_3_response as text
+%        str2double(get(hObject,'String')) returns contents of theta_3_response as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function theta_3_response_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to theta_3_response (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in inverse_lspb_button.
+function inverse_lspb_button_Callback(hObject, eventdata, handles)
+% hObject    handle to inverse_lspb_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+x = str2double(get(handles.x_setpoint_value, 'String'));
+y = str2double(get(handles.y_setpoint_value, 'String'));
+z = str2double(get(handles.z_setpoint_value, 'String'));
+
+if isnan(x) || isnan(y) || isnan(z)
+    errordlg('Invalid value', 'Error');
+    return;
+end
+
+% Value of x, y, z must be a point in this sphere:
+O = [0, 0, 500];
+r = 1000;
+
+if (x - O(1))^2 + (y - O(2))^2 + (z - O(3))^2 > r^2
+    errordlg('Invalid value', 'Error');
+    return;
+end
+
+start_x = 1000;
+start_y = 0;
+start_z = 500;
+
+inverse_lspb(handles, x, y, z);
+
+
+
+function lspb_q_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to lspb_q_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lspb_q_max_value as text
+%        str2double(get(hObject,'String')) returns contents of lspb_q_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lspb_q_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lspb_q_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function lspb_v_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to lspb_v_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lspb_v_max_value as text
+%        str2double(get(hObject,'String')) returns contents of lspb_v_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lspb_v_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lspb_v_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function lspb_a_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to lspb_a_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lspb_a_max_value as text
+%        str2double(get(hObject,'String')) returns contents of lspb_a_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lspb_a_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lspb_a_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
 end
