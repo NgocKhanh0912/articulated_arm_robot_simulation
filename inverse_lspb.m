@@ -114,6 +114,10 @@ function Inverse_LSPB(handles, X, Y, Z)
         pause(0.05);
     end
 
+    set(handles.x_response_value, 'String', num2str(X));
+    set(handles.y_response_value, 'String', num2str(Y));
+    set(handles.z_response_value, 'String', num2str(Z));
+    
     axes(handles.theta_1_v_axes); 
     plot(t, rad2deg(theta1_velocity), 'LineWidth', 2); 
     xlabel('Time (s)');
