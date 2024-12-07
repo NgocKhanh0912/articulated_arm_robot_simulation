@@ -1,5 +1,6 @@
-function Inverse_LSPB(handles, X, Y, Z)
+function LSPB(handles, kinematics_flag, theta1_end, theta2_end, theta3_end, theta1_start, theta2_start, theta3_start)
 
+    % Reset graph
     axes(handles.theta_1_v_axes); 
     cla;
     axes(handles.theta_2_v_axes); 
@@ -7,37 +8,22 @@ function Inverse_LSPB(handles, X, Y, Z)
     axes(handles.theta_3_v_axes); 
     cla;
 
+    % Reset values
+    set(handles.theta_1_response, 'String', 0);
+    set(handles.theta_2_response, 'String', 0);
+    set(handles.theta_3_response, 'String', 0);
+
+    set(handles.theta1_response_value, 'String', 0);
+    set(handles.theta2_response_value, 'String', 0);
+    set(handles.theta3_response_value, 'String', 0);
+
+    set(handles.x_response_value, 'String', 1000);
+    set(handles.y_response_value, 'String', 0);
+    set(handles.z_response_value, 'String', 500);
+
     d1 = 500.0; 
     a2 = 500.0; 
     a3 = 500.0; 
-
-    X_start = 1000; 
-    Y_start = 0; 
-    Z_start = 500;
-
-    theta1_start = atan2(Y_start, X_start);
-    r_start = sqrt(X_start^2 + Y_start^2);
-    z_effective_start = Z_start - d1;
-
-    c3_start = (r_start^2 + z_effective_start^2 - a2^2 - a3^2) / (2 * a2 * a3);
-    s3_start = -sqrt(1 - c3_start^2);
-    theta3_start = atan2(s3_start, c3_start);
-
-    A_start = a2 + a3 * c3_start;
-    B_start = a3 * s3_start;
-    theta2_start = atan2(z_effective_start, r_start) - atan2(B_start, A_start);
-
-    theta1_end = atan2(Y, X);
-    r_end = sqrt(X^2 + Y^2);
-    z_effective_end = Z - d1;
-
-    c3_end = (r_end^2 + z_effective_end^2 - a2^2 - a3^2) / (2 * a2 * a3);
-    s3_end = -sqrt(1 - c3_end^2);
-    theta3_end = atan2(s3_end, c3_end);
-
-    A_end = a2 + a3 * c3_end;
-    B_end = a3 * s3_end;
-    theta2_end = atan2(z_effective_end, r_end) - atan2(B_end, A_end);
 
     q_max1 = theta1_end - theta1_start;
     q_max2 = theta2_end - theta2_start;
@@ -78,7 +64,7 @@ function Inverse_LSPB(handles, X, Y, Z)
     v_max2 = compute_v_max(q_max2, T_a2, T_c2);
     v_max3 = compute_v_max(q_max3, T_a3, T_c3);
 
-    num_points = 50;
+    num_points = 30;
     t1 = linspace(0, T1, num_points);
     t2 = linspace(0, T2, num_points);
     t3 = linspace(0, T3, num_points);
@@ -127,19 +113,25 @@ function Inverse_LSPB(handles, X, Y, Z)
         axes(handles.robot_axes);
         draw_robot(theta_position(i, 1), theta_position(i, 2), theta_position(i, 3));
 
-        set(handles.theta1_response_value, 'String', num2str(rad2deg(theta_position(i, 1))));
-        set(handles.theta2_response_value, 'String', num2str(rad2deg(theta_position(i, 2))));
-        set(handles.theta3_response_value, 'String', num2str(rad2deg(theta_position(i, 3))));
+        if (kinematics_flag == 1) % Forward
+          set(handles.theta_1_response, 'String', num2str(rad2deg(theta_position(i, 1))));
+          set(handles.theta_2_response, 'String', num2str(rad2deg(theta_position(i, 2))));
+          set(handles.theta_3_response, 'String', num2str(rad2deg(theta_position(i, 3))));
+        elseif (kinematics_flag == 0)  % Inverse
+          set(handles.theta1_response_value, 'String', num2str(rad2deg(theta_position(i, 1))));
+          set(handles.theta2_response_value, 'String', num2str(rad2deg(theta_position(i, 2))));
+          set(handles.theta3_response_value, 'String', num2str(rad2deg(theta_position(i, 3))));
 
-        % Calculate current position
-        r = a2 * cos(theta_position(i, 2)) + a3 * cos(theta_position(i, 2) + theta_position(i, 3));
-        current_X(i) = r * cos(theta_position(i, 1));
-        current_Y(i) = r * sin(theta_position(i, 1));
-        current_Z(i) = d1 + a2 * sin(theta_position(i, 2)) + a3 * sin(theta_position(i, 2) + theta_position(i, 3));
+          % Calculate current position
+          r = a2 * cos(theta_position(i, 2)) + a3 * cos(theta_position(i, 2) + theta_position(i, 3));
+          current_X(i) = r * cos(theta_position(i, 1));
+          current_Y(i) = r * sin(theta_position(i, 1));
+          current_Z(i) = d1 + a2 * sin(theta_position(i, 2)) + a3 * sin(theta_position(i, 2) + theta_position(i, 3));
 
-        set(handles.x_response_value, 'String', num2str(current_X(i)));
-        set(handles.y_response_value, 'String', num2str(current_Y(i)));
-        set(handles.z_response_value, 'String', num2str(current_Z(i)));
+          set(handles.x_response_value, 'String', num2str(current_X(i)));
+          set(handles.y_response_value, 'String', num2str(current_Y(i)));
+          set(handles.z_response_value, 'String', num2str(current_Z(i)));
+        end
 
         axes(handles.theta_1_v_axes);
         plot(t1(1:i), rad2deg(theta1_velocity(1:i)), 'LineWidth', 2);
@@ -162,12 +154,8 @@ function Inverse_LSPB(handles, X, Y, Z)
         ylabel('Angular Velocity (degree/s)');
         title('Theta 3 Angular Velocity');
 
-        pause(0.005);
+        pause(0.0005);
     end
-
-    set(handles.x_response_value, 'String', num2str(X));
-    set(handles.y_response_value, 'String', num2str(Y));
-    set(handles.z_response_value, 'String', num2str(Z));
 end
 
 function a_max = compute_a_max(q_max, T_a, T_c)
