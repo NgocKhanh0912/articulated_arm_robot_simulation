@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 02-Dec-2024 22:41:29
+% Last Modified by GUIDE v2.5 07-Dec-2024 23:32:12
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -66,8 +66,9 @@ set(handles.theta_2_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
 set(handles.theta_3_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
 
-% Draw base form of Articulated Arm Robot
-draw_robot_form(handles);
+% Draw base form of Articulated Arm Robot and plot Robot information
+plot_robot_information(handles);
+clear_values(handles);
 
 % UIWAIT makes gui wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -158,6 +159,8 @@ function forward_button_Callback(hObject, eventdata, handles)
 % hObject    handle to forward_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+clear_values(handles);
 axes(handles.robot_axes);
 
 theta_1 = deg2rad(get(handles.theta_1_slider, 'Value'));
@@ -390,6 +393,8 @@ function inverse_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+clear_values(handles);
+
 x = str2double(get(handles.x_setpoint_value, 'String'));
 y = str2double(get(handles.y_setpoint_value, 'String'));
 z = str2double(get(handles.z_setpoint_value, 'String'));
@@ -417,7 +422,18 @@ for i = 1:25
     step_y = start_y + (y - start_y) * (i / 25.0);
     step_z = start_z + (z - start_z) * (i / 25.0);
 
-    inverse_kinematics(handles, step_x, step_y, step_z);
+    [step_theta_1, step_theta_2, step_theta_3] = inverse_kinematics(step_x, step_y, step_z);
+
+    set(handles.x_response_value, 'String', step_x);
+    set(handles.y_response_value, 'String', step_y);
+    set(handles.z_response_value, 'String', step_z);
+
+    set(handles.theta1_response_value, 'String', num2str(rad2deg(step_theta_1)));
+    set(handles.theta2_response_value, 'String', num2str(rad2deg(step_theta_2)));
+    set(handles.theta3_response_value, 'String', num2str(rad2deg(step_theta_3)));
+
+    draw_robot(step_theta_1, step_theta_2, step_theta_3);
+
     pause(0.0005);
 end
 
@@ -566,6 +582,8 @@ function inverse_lspb_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+clear_values(handles);
+
 x = str2double(get(handles.x_setpoint_value, 'String'));
 y = str2double(get(handles.y_setpoint_value, 'String'));
 z = str2double(get(handles.z_setpoint_value, 'String'));
@@ -588,30 +606,12 @@ start_x = 1000;
 start_y = 0;
 start_z = 500;
 
-inverse_lspb(handles, x, y, z);
+[theta1_end, theta2_end, theta3_end] = inverse_kinematics(x, y, z);
+[theta1_start, theta2_start, theta3_start] = inverse_kinematics(start_x, start_y, start_z);
 
+kinematics_flag = 0; % Inverse
 
-
-function lspb_q_max_value_Callback(hObject, eventdata, handles)
-% hObject    handle to lspb_q_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of lspb_q_max_value as text
-%        str2double(get(hObject,'String')) returns contents of lspb_q_max_value as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function lspb_q_max_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to lspb_q_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
+lspb(handles, kinematics_flag, theta1_end, theta2_end, theta3_end, theta1_start, theta2_start, theta3_start);
 
 
 
@@ -658,3 +658,27 @@ function lspb_a_max_value_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in forward_lspb_button.
+
+function forward_lspb_button_Callback(hObject, eventdata, handles)
+% hObject    handle to forward_lspb_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+clear_values(handles);
+
+theta1_end = deg2rad(get(handles.theta_1_slider, 'Value'));
+theta2_end = deg2rad(get(handles.theta_2_slider, 'Value'));
+theta3_end = deg2rad(get(handles.theta_3_slider, 'Value'));
+
+start_x = 1000;
+start_y = 0;
+start_z = 500;
+
+[theta1_start, theta2_start, theta3_start] = inverse_kinematics(start_x, start_y, start_z);
+
+kinematics_flag = 1; % Forward
+
+lspb(handles, kinematics_flag, theta1_end, theta2_end, theta3_end, theta1_start, theta2_start, theta3_start);
