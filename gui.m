@@ -58,11 +58,6 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-% Set robot start position
-set(handles.x_response_value, 'String', 1000);
-set(handles.y_response_value, 'String', 0);
-set(handles.z_response_value, 'String', 500);
-
 % Config slider parameters
 set(handles.theta_1_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
@@ -72,7 +67,7 @@ set(handles.theta_3_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
 
 % Draw base form of Articulated Arm Robot
-draw_robot_form(handles);
+clear_values(handles);
 
 % UIWAIT makes gui wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -163,6 +158,8 @@ function forward_button_Callback(hObject, eventdata, handles)
 % hObject    handle to forward_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+clear_values(handles);
 axes(handles.robot_axes);
 
 theta_1 = deg2rad(get(handles.theta_1_slider, 'Value'));
@@ -395,10 +392,7 @@ function inverse_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Set robot start position
-set(handles.x_response_value, 'String', 1000);
-set(handles.y_response_value, 'String', 0);
-set(handles.z_response_value, 'String', 500);
+clear_values(handles);
 
 x = str2double(get(handles.x_setpoint_value, 'String'));
 y = str2double(get(handles.y_setpoint_value, 'String'));
@@ -587,6 +581,8 @@ function inverse_lspb_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+clear_values(handles);
+
 x = str2double(get(handles.x_setpoint_value, 'String'));
 y = str2double(get(handles.y_setpoint_value, 'String'));
 z = str2double(get(handles.z_setpoint_value, 'String'));
@@ -669,6 +665,8 @@ function forward_lspb_button_Callback(hObject, eventdata, handles)
 % hObject    handle to forward_lspb_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+clear_values(handles);
 
 theta1_end = deg2rad(get(handles.theta_1_slider, 'Value'));
 theta2_end = deg2rad(get(handles.theta_2_slider, 'Value'));
