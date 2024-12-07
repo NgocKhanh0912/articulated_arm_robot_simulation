@@ -7,8 +7,6 @@ function Inverse_LSPB(handles, X, Y, Z)
     axes(handles.theta_3_v_axes); 
     cla;
 
-    axes(handles.robot_axes);
-
     d1 = 500.0; 
     a2 = 500.0; 
     a3 = 500.0; 
@@ -126,13 +124,14 @@ function Inverse_LSPB(handles, X, Y, Z)
     current_Z = zeros(num_points, 1);
 
     for i = 1:num_points
+        axes(handles.robot_axes);
         draw_robot(theta_position(i, 1), theta_position(i, 2), theta_position(i, 3));
 
         set(handles.theta1_response_value, 'String', num2str(rad2deg(theta_position(i, 1))));
         set(handles.theta2_response_value, 'String', num2str(rad2deg(theta_position(i, 2))));
         set(handles.theta3_response_value, 'String', num2str(rad2deg(theta_position(i, 3))));
 
-        // Calculate current position
+        % Calculate current position
         r = a2 * cos(theta_position(i, 2)) + a3 * cos(theta_position(i, 2) + theta_position(i, 3));
         current_X(i) = r * cos(theta_position(i, 1));
         current_Y(i) = r * sin(theta_position(i, 1));
@@ -142,29 +141,29 @@ function Inverse_LSPB(handles, X, Y, Z)
         set(handles.y_response_value, 'String', num2str(current_Y(i)));
         set(handles.z_response_value, 'String', num2str(current_Z(i)));
 
+        axes(handles.theta_1_v_axes);
+        plot(t1(1:i), rad2deg(theta1_velocity(1:i)), 'LineWidth', 2);
+        grid on;
+        xlabel('Time (s)');
+        ylabel('Angular Velocity (degree/s)');
+        title('Theta 1 Angular Velocity');
+
+        axes(handles.theta_2_v_axes);
+        plot(t2(1:i), rad2deg(theta2_velocity(1:i)), 'LineWidth', 2);
+        grid on;
+        xlabel('Time (s)');
+        ylabel('Angular Velocity (degree/s)');
+        title('Theta 2 Angular Velocity');
+
+        axes(handles.theta_3_v_axes);
+        plot(t3(1:i), rad2deg(theta3_velocity(1:i)), 'LineWidth', 2);
+        grid on;
+        xlabel('Time (s)');
+        ylabel('Angular Velocity (degree/s)');
+        title('Theta 3 Angular Velocity');
+
         pause(0.005);
     end
-
-    axes(handles.theta_1_v_axes); 
-    plot(t1, rad2deg(theta1_velocity), 'LineWidth', 2);
-    grid on; 
-    xlabel('Time (s)');
-    ylabel('Angular Velocity (degree/s)');
-    title('Theta 1 Angular Velocity');
-
-    axes(handles.theta_2_v_axes); 
-    plot(t2, rad2deg(theta2_velocity), 'LineWidth', 2);
-    grid on;
-    xlabel('Time (s)');
-    ylabel('Angular Velocity (degree/s)');
-    title('Theta 2 Angular Velocity');
-
-    axes(handles.theta_3_v_axes); 
-    plot(t3, rad2deg(theta3_velocity), 'LineWidth', 2); 
-    grid on;
-    xlabel('Time (s)');
-    ylabel('Angular Velocity (degree/s)');
-    title('Theta 3 Angular Velocity');
 
     set(handles.x_response_value, 'String', num2str(X));
     set(handles.y_response_value, 'String', num2str(Y));
