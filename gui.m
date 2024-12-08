@@ -66,6 +66,8 @@ set(handles.theta_2_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
 set(handles.theta_3_slider, 'Min', -90, 'Max', 90, 'Value', 0, ...
     'SliderStep', [1/180, 1/180]);
 
+global trajectory_points;
+
 % Draw base form of Articulated Arm Robot and plot Robot information
 plot_robot_information(handles);
 clear_values(handles);
