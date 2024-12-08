@@ -1,5 +1,8 @@
 function Clear_Values(handles)
 
+    global trajectory_points;
+    trajectory_points = [];
+
     % Reset graph
     axes(handles.theta_1_v_axes); 
     cla;
