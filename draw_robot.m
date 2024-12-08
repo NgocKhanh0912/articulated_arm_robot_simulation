@@ -1,5 +1,11 @@
 function Draw_Robot(theta1, theta2, theta3)
 
+  global trajectory_points;
+
+  if isempty(trajectory_points)
+      trajectory_points = [];
+  end
+
   cla;
   hold on;
 
@@ -14,6 +20,17 @@ function Draw_Robot(theta1, theta2, theta3)
 
   T0_2 = T0_1 * T1_2;
   T0_3 = T0_2 * T2_3;
+
+  effector_position = T0_3(1:3, 4)';
+  trajectory_points = [trajectory_points; effector_position];
+
+  if size(trajectory_points, 1) > 1
+      plot3(trajectory_points(:, 1), trajectory_points(:, 2), trajectory_points(:, 3), ...
+            'r-', 'LineWidth', 2); % Đường liên tục
+  end
+
+  plot3(effector_position(1), effector_position(2), effector_position(3), ...
+        'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b');
 
   draw_base();
 
