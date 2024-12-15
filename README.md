@@ -1,1 +1,1 @@
-# btl_robot_khanh_2111474
+# Matlab Simulation of Articulated Arm Robot (3 DOF)
